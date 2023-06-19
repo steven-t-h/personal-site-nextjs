@@ -36,7 +36,7 @@ export default function Footer() {
 
       <Flex mx="-2">
         <chakra.a
-          href="https://google.com"
+          href="https://github.com/steven-t-h"
           target="_blank"
           mx="2"
           color="gray.600"
