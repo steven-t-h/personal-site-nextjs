@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
-import { chakra, Flex, Icon, Text } from '@chakra-ui/react'
+import { chakra, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const bgColor = useColorModeValue('blue.100', 'blue.700')
   const copyRight = `© ${currentYear}`
   return (
     <Flex
@@ -14,10 +15,7 @@ export default function Footer() {
       justify="space-between"
       px="6"
       py="4"
-      bg="white"
-      _dark={{
-        bg: 'gray.800',
-      }}
+      bg={bgColor}
     >
       <Text
         fontSize="lg"
@@ -33,7 +31,7 @@ export default function Footer() {
           color: 'gray.700',
         }}
       >
-        sth-dev.com
+        stevenhalltech.com
       </Text>
 
       <chakra.p py={{ base: '2', sm: '0' }} color="gray.800" _dark={{ color: 'white' }}>

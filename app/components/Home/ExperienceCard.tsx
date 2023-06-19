@@ -1,9 +1,7 @@
 import { Box, Text, Image, Stack, useColorModeValue } from '@chakra-ui/react'
+import { ExperiencePost } from '@/contentful/experience'
 
-interface ExperienceProps {
-  name: string
-  logo: string | null
-  description: string
+interface ExperienceProps extends ExperiencePost {
   showDescription: boolean
 }
 
@@ -20,7 +18,7 @@ const ExperienceCard = ({ name, logo, description, showDescription }: Experience
       _hover={{ background: cardBg }}
     >
       <Stack direction={['column', 'row']} spacing={4} verticalAlign={'center'}>
-        <Image boxSize={imgSize} src={logo || ''} alt={name} my={2} />
+        <Image boxSize={imgSize} src={logo?.src || ''} alt={name} my={2} />
         <Text fontSize={'lg'} fontWeight={'bold'} mt={4}>
           {name}
         </Text>
