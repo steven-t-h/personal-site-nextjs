@@ -1,5 +1,5 @@
-import { Box, Text, Image, Stack, useColorModeValue } from '@chakra-ui/react'
-import { ExperiencePost } from '@/contentful/experience'
+import { Box, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react'
+import { ExperiencePost } from '@/app/api/contentful/experience'
 
 interface ExperienceProps extends ExperiencePost {
   showDescription: boolean

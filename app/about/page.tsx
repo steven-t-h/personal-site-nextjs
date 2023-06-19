@@ -1,26 +1,48 @@
 'use client'
-import { Box, chakra, Container, Heading, ListItem, Text, UnorderedList, useColorModeValue } from '@chakra-ui/react'
+import {
+  Box,
+  chakra,
+  Container,
+  Heading,
+  List,
+  ListItem,
+  OrderedList,
+  ScaleFade,
+  SlideFade,
+  Text,
+  UnorderedList,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { fetchSoftSkills, SoftSkillValue } from '@/contentful/softskills'
+import { SoftSkillValue } from '@/app/api/contentful/softskills'
 import Link from 'next/link'
+import Loading from '@/app/components/Loading'
 
 const About = () => {
   const iconColor = useColorModeValue('blue.700', 'blue.200')
   const linkColor = useColorModeValue('blue.700', 'blue.200')
   const bulletListColor = useColorModeValue('gray.700', 'gray.200')
   const [skills, setSkills] = useState<SoftSkillValue[]>([])
+  const [paddingSize, setPaddingSize] = useState<number>(64)
 
   useEffect(() => {
     async function fetchData() {
-      const experienceEntries = await fetchSoftSkills({
-        preview: false,
+      setSkills([])
+      const skillEntries = await fetch('/api/contentful?model=softSkills').then((res) => res.json())
+      //add each item to the array with a .2s delay
+      skillEntries.forEach((entry: SoftSkillValue, index: number) => {
+        setTimeout(() => {
+          setSkills((prev) => [...prev, entry])
+        }, index * 30)
       })
-      setSkills(experienceEntries)
     }
     fetchData().then(() => {
       console.log('Skills fetched', skills)
     })
   }, [])
+
+  // function to reduce paddingSize to 0 over 4 seconds.
+
   return (
     <Container minW={'full'} mx={'auto'} py={4}>
       <chakra.div mx="auto" maxW="1200px">
@@ -48,17 +70,21 @@ const About = () => {
             {`. On the home page you'll get an overview of my developer
           skills. In addition to my expertise in those areas, I have a strong background in the following:`}
           </Text>
-          <UnorderedList spacing={3} ml={24} my={6}>
-            {skills.map((skill) => {
-              return (
-                <ListItem key={skill.position}>
-                  <Text color={bulletListColor} as={'span'} fontWeight={'bold'}>
-                    {skill.skill}
-                  </Text>
-                </ListItem>
-              )
-            })}
-          </UnorderedList>
+          {skills.length > 0 && (
+            <UnorderedList spacing={3} ml={24} my={6} maxW={'full'}>
+              {skills.map((skill) => {
+                return (
+                  <SlideFade key={skill.position} offsetX={180} in={skills.length > 0}>
+                    <ListItem>
+                      <Text color={bulletListColor} as={'span'} fontWeight={'bold'}>
+                        {skill.skill}
+                      </Text>
+                    </ListItem>
+                  </SlideFade>
+                )
+              })}
+            </UnorderedList>
+          )}
           <Text>
             {`Throughout my career, as both a Full Time Employee and a Consultant, I have focused on bringing value to my employers and clients.
             I believe in focusing on the business needs and goals, and then using technology to achieve those goals. My wide range of experience

@@ -1,4 +1,4 @@
-import { TypeSoftSkillsSkeleton } from './types'
+import { TypeSoftSkillsSkeleton } from '../../../types/contentful'
 import { Entry } from 'contentful'
 import contentfulClient from './contentfulClient'
 

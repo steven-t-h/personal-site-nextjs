@@ -1,7 +1,7 @@
 'use client'
 import ExperienceCard from '@/app/components/Home/ExperienceCard'
 import { Box, Container, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
-import { ExperiencePost } from '@/contentful/experience'
+import { ExperiencePost } from '@/app/api/contentful/experience'
 
 interface ExperienceBoxProps {
   title: string

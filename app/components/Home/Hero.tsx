@@ -3,7 +3,7 @@ import { Box, Code, Flex, Heading, Text } from '@chakra-ui/react'
 
 export default function HomeHero() {
   return (
-    <Box boxShadow={'2xl'} rounded={'md'} p={6} mx={4} minW={'60%'} mb={36}>
+    <Box boxShadow={'2xl'} rounded={'md'} p={6} mx={4} minW={'60%'} mb={20}>
       <Text fontSize={'sm'} color={'blue.400'} ml={-2}>
         Hello world. My name is
       </Text>

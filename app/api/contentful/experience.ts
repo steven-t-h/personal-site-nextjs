@@ -1,6 +1,5 @@
-import { TypeExperienceSkeleton } from './types'
+import { TypeExperienceSkeleton } from '@/types/contentful'
 import { Entry } from 'contentful'
-import { Document as RichTextDocument } from '@contentful/rich-text-types'
 import contentfulClient from './contentfulClient'
 import { ContentImage, parseContentfulContentImage } from './contentImage'
 
@@ -31,13 +30,18 @@ interface FetchExperiencePostsOptions {
 }
 export async function fetchExperiencePosts({ preview }: FetchExperiencePostsOptions): Promise<ExperiencePost[]> {
   const contentful = contentfulClient({ preview })
-
-  const experiencePostResults = await contentful.getEntries<TypeExperienceSkeleton>({
-    content_type: 'experience',
-    order: ['fields.level', 'fields.position'],
-  })
-
-  return experiencePostResults.items.map(
-    (experiencePostEntry) => parseContentfulExperience(experiencePostEntry) as ExperiencePost
-  )
+  return contentful
+    .getEntries<TypeExperienceSkeleton>({
+      content_type: 'experience',
+      order: ['fields.level', 'fields.position'],
+    })
+    .then((experiencePostResults) => {
+      return experiencePostResults.items.map(
+        (experiencePostEntry) => parseContentfulExperience(experiencePostEntry) as ExperiencePost
+      )
+    })
+    .catch((error) => {
+      console.log('error', error)
+      return []
+    })
 }

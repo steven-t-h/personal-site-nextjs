@@ -7,7 +7,7 @@ interface LoadingProps {
 const Loading = ({ title, subtitle }: LoadingProps) => {
   const textColor = useColorModeValue('blue.800', 'blue.200')
   return (
-    <Box w={'full'} bg={'gray.800'} boxShadow={'2xl'} rounded={'md'} p={6} textAlign={'center'}>
+    <Box w={'full'} boxShadow={'2xl'} rounded={'md'} p={6} textAlign={'center'}>
       <Text color={textColor} textTransform={'uppercase'} fontWeight={'bold'} fontSize={'2xl'} letterSpacing={1.1}>
         {title}
       </Text>

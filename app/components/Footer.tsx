@@ -34,10 +34,6 @@ export default function Footer() {
         stevenhalltech.com
       </Text>
 
-      <chakra.p py={{ base: '2', sm: '0' }} color="gray.800" _dark={{ color: 'white' }}>
-        All rights reserved
-      </chakra.p>
-
       <Flex mx="-2">
         <chakra.a
           href="https://google.com"

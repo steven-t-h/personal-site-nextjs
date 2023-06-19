@@ -1,23 +1,33 @@
 'use client'
 import HomeHero from '@/app/components/Home/Hero'
 import ExperienceBox from '@/app/components/Home/ExperienceBox'
-import { chakra, Container } from '@chakra-ui/react'
-import { ExperiencePost, fetchExperiencePosts } from '@/contentful/experience'
+import { chakra, Container, Fade, SlideFade, useDisclosure } from '@chakra-ui/react'
+import { ExperiencePost } from '@/app/api/contentful/experience'
 import { useEffect, useState } from 'react'
 import Loading from '@/app/components/Loading'
 
 function Home() {
   const [experience, setExperience] = useState([]) as any[]
+  const levelOne = useDisclosure()
+  const levelTwo = useDisclosure()
+  const levelThree = useDisclosure()
 
   useEffect(() => {
     async function fetchData() {
-      const experienceEntries = await fetchExperiencePosts({
-        preview: false,
-      })
+      const experienceEntries = await fetch('/api/contentful?model=experience').then((res) => res.json())
       setExperience(experienceEntries)
     }
     fetchData().then(() => {
       console.log('Experience fetched', experience)
+      levelOne.onOpen()
+      //Wait 3 seconds
+      setTimeout(() => {
+        levelTwo.onOpen()
+      }, 500)
+      //Wait 6 seconds
+      setTimeout(() => {
+        levelThree.onOpen()
+      }, 1000)
     })
   }, [])
 
@@ -25,27 +35,35 @@ function Home() {
     <>
       <Container minW={'full'} mx={'auto'} py={4}>
         <chakra.div mx="auto" maxW="1200px">
-          <HomeHero />
+          <Fade in={true}>
+            <HomeHero />
+          </Fade>
           {experience.length > 0 && (
             <>
-              <ExperienceBox
-                title={'Expert in these areas'}
-                experience={getLevelExperience(experience, 1)}
-                showDescription={true}
-              />
-              <ExperienceBox
-                title={'Master of these skills'}
-                experience={getLevelExperience(experience, 2)}
-                showDescription={true}
-              />
-              <ExperienceBox
-                title={'Other areas '}
-                experience={getLevelExperience(experience, 3)}
-                showDescription={false}
-              />
+              <SlideFade offsetX={180} in={levelOne.isOpen}>
+                <ExperienceBox
+                  title={'Expert in these areas'}
+                  experience={getLevelExperience(experience, 1)}
+                  showDescription={true}
+                />
+              </SlideFade>
+              <SlideFade offsetX={-180} in={levelTwo.isOpen}>
+                <ExperienceBox
+                  title={'Master of these skills'}
+                  experience={getLevelExperience(experience, 2)}
+                  showDescription={true}
+                />
+              </SlideFade>
+              <SlideFade offsetX={180} in={levelThree.isOpen}>
+                <ExperienceBox
+                  title={'Other areas '}
+                  experience={getLevelExperience(experience, 3)}
+                  showDescription={false}
+                />
+              </SlideFade>
             </>
           )}
-          {experience.length === 0 && <Loading title={'Loading skills'} subtitle={'please wait...'} />}
+          {experience.length === 0 && <Loading title={'Loading'} subtitle={'please wait...'} />}
         </chakra.div>
       </Container>
     </>
