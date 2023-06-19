@@ -23,11 +23,11 @@ function Home() {
       //Wait 3 seconds
       setTimeout(() => {
         levelTwo.onOpen()
-      }, 500)
+      }, 200)
       //Wait 6 seconds
       setTimeout(() => {
         levelThree.onOpen()
-      }, 1000)
+      }, 400)
     })
   }, [])
 

@@ -37,7 +37,5 @@ export default function contentfulClient({ preview = false }) {
   if (!accessToken) {
     throw new Error('CONTENTFUL_ACCESS_TOKEN is missing')
   }
-  console.log(client)
-  console.log(space, accessToken)
   return client
 }
