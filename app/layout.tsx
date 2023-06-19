@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
+  metadataBase: new URL('https://stevenhalltech.com'),
   title: 'Steven Hall | Full Stack Developer',
   description: 'Steven Hall is a full stack developer with a passion for building great products.',
   openGraph: {
