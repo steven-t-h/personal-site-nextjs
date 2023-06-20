@@ -27,16 +27,39 @@ const ContactForm = () => {
   } = useForm()
   const toast = useToast()
 
-  function onSubmit(values: any) {
-    console.log(values)
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(values)
+  const onSubmit = handleSubmit((data) => {
+    const { name, email, message, color } = data
+    console.log(data)
+    if (color) {
+      errorToast('You are a robot!')
+      reset()
+      return
+    }
+    const body = {
+      name,
+      email,
+      message,
+    }
+    fetch('/api/sendgrid', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (!res.success) {
+          errorToast(res.message)
+          return
+        }
         reset()
         successToast()
-      }, 1000)
-    })
-  }
+      })
+      .catch((err) => {
+        errorToast(err.message)
+      })
+  })
 
   const successToast = () => {
     toast({
@@ -48,11 +71,21 @@ const ContactForm = () => {
     })
   }
 
+  const errorToast = (msg: string) => {
+    toast({
+      title: 'Message Failed',
+      description: msg,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
   const formBorder = useColorModeValue('blue.200', 'blue.700')
   const formInputBorder = useColorModeValue('blue.700', 'blue.200')
   const textColor = useColorModeValue('blue.700', 'gray.200')
   return (
-    <Box borderRadius="lg" w={'full'} mb={8} as={'form'} onSubmit={handleSubmit(onSubmit)}>
+    <Box borderRadius="lg" w={'full'} mb={8} as={'form'} onSubmit={onSubmit}>
       <Wrap spacing={{ base: 10, sm: 3, md: 5, lg: 10 }} w={'full'}>
         <WrapItem>
           <Box>
@@ -127,7 +160,7 @@ const ContactForm = () => {
                     type="text"
                     size="md"
                     placeholder={'What is your favorite color?'}
-                    {...register('favorite-color-honeypot', { required: false })}
+                    {...register('color', { required: false })}
                   />
                 </FormControl>
                 <Button type={'submit'} variant="solid" isLoading={isSubmitting}>
