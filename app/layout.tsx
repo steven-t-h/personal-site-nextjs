@@ -17,7 +17,7 @@ export const metadata = {
     siteName: 'Steven Hall',
     images: [
       {
-        url: 'https://avatars.githubusercontent.com/u/29719881?v=4',
+        url: 'https://images.ctfassets.net/sd1qrhd4pml8/482fVD8zkIL5c3uQUWj3YW/fa665643c6aac27627ae0ef9687f69a3/1646365717273?h=250',
       },
     ],
     locale: 'en_US',
