@@ -2,7 +2,7 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It uses Chakra UI for styling and Contentful as a CMS.
 
-View the live site at [stevenhalltech.com](stevenhalltech.com).
+View the live site at [stevenhalltech.com](https://stevenhalltech.com).
 
 ## Table of Contents
 
